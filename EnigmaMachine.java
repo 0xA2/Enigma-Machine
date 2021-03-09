@@ -452,7 +452,7 @@ class EnigmaMachine{
 
 											System.out.print("Second Letter > ");
 											String second = input.nextLine();
-											if( (first.length() != 1) || !Character.isLetter(first.charAt(0)) || machine.getPlugboard().contains(first.charAt(0))){
+											if( (second.length() != 1) || !Character.isLetter(second.charAt(0)) || machine.getPlugboard().contains(second.charAt(0))){
 												System.out.println("Invalid letter, skipping..."); continue;
 											}
 
