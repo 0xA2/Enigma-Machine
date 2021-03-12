@@ -180,7 +180,6 @@ class EnigmaI{
 	EnigmaI(){
 
 		// Default settings use rotors 1,2 and 3 (from left to right) and 'AAA' as the starting position.
-		// By default, the Plugboard is initialized with same letter pairs meaning no swaps happen.
 
 		rotorList = new RotorList();
 
@@ -196,7 +195,6 @@ class EnigmaI{
 	EnigmaI(String r1, String r2, String r3){
 
 		// Alternative constructor that recieves intended rotors to use as parameters
-		// By default, the Plugboard is initialized with same letter pairs meaning no swaps happen.
 
 		rotorList = new RotorList();
 
