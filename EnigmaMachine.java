@@ -8,18 +8,18 @@ class Rotor{
 	private char[] WiringForward;
 	private char[] WiringBackward;
 	private int Offset;
-	private char Notch;
+	private char Turnover;
 	private Rotor Prev;
 
 
 	// Constructor
 
-	Rotor(char[] wiringForward, char[] wiringBackwards, int offset, char notch, Rotor prev){
+	Rotor(char[] wiringForward, char[] wiringBackwards, int offset, char turnover, Rotor prev){
 
 		WiringForward = wiringForward;
 		WiringBackward = wiringBackwards;
 		Offset = offset;
-		Notch = Character.toUpperCase(notch);
+		Turnover = Character.toUpperCase(turnover);
 		Prev = prev;
 
 	}
@@ -44,7 +44,7 @@ class Rotor{
 
 	public void step(){
 		char curPosition = (char)(Offset+65);
-		if( (Prev != null) && (curPosition == Notch) ){
+		if( (Prev != null) && (curPosition == Turnover) ){
 			Prev.step();
 		}
 		Offset = (Offset + 1)%26;
@@ -66,25 +66,25 @@ class RotorList{
 
 	private char[] rotor1Forward = {'E','K','M','F','L','G','D','Q','V','Z','N','T','O','W','Y','H','X','U','S','P','A','I','B','R','C','J'};
 	private char[] rotor1Backward = {'U','W','Y','G','A','D','F','P','V','Z','B','E','C','K','M','T','H','X','S','L','R','I','N','Q','O','J'};
-	private char rotor1Notch = 'Q';
+	private char rotor1Turnover = 'Q';
 	private char[] rotor2Forward = {'A','J','D','K','S','I','R','U','X','B','L','H','W','T','M','C','Q','G','Z','N','P','Y','F','V','O','E'};
 	private char[] rotor2Backward = {'A','J','P','C','Z','W','R','L','F','B','D','K','O','T','Y','U','Q','G','E','N','H','X','M','I','V','S'};
-	private char rotor2Notch = 'E';
+	private char rotor2Turnover = 'E';
 	private char[] rotor3Forward = {'B','D','F','H','J','L','C','P','R','T','X','V','Z','N','Y','E','I','W','G','A','K','M','U','S','Q','O'};
 	private char[] rotor3Backward = {'T','A','G','B','P','C','S','D','Q','E','U','F','V','N','Z','H','Y','I','X','J','W','L','R','K','O','M'};
-	private char rotor3Notch = 'V';
+	private char rotor3Turnover = 'V';
 	private char[] rotor4Forward = {'E','S','O','V','P','Z','J','A','Y','Q','U','I','R','H','X','L','N','F','T','G','K','D','C','M','W','B'};
 	private char[] rotor4Backward = {'H','Z','W','V','A','R','T','N','L','G','U','P','X','Q','C','E','J','M','B','S','K','D','Y','O','I','F'};
-	private char rotor4Notch = 'J';
+	private char rotor4Turnover = 'J';
 	private char[] rotor5Forward = {'V','Z','B','R','G','I','T','Y','U','P','S','D','N','H','L','X','A','W','M','J','Q','O','F','E','C','K'};
 	private char[] rotor5Backward = {'Q','C','Y','L','X','W','E','N','F','T','Z','O','S','M','V','J','U','D','K','G','I','A','R','P','H','B'};
-	private char rotor5Notch = 'Z';
+	private char rotor5Turnover = 'Z';
 
-	private Rotor r1 = new Rotor(rotor1Forward,rotor1Backward,0,rotor1Notch,null);
-	private Rotor r2 = new Rotor(rotor2Forward,rotor2Backward,0,rotor2Notch,null);
-	private Rotor r3 = new Rotor(rotor3Forward,rotor3Backward,0,rotor3Notch,null);
-	private Rotor r4 = new Rotor(rotor4Forward,rotor4Backward,0,rotor4Notch,null);
-	private Rotor r5 = new Rotor(rotor5Forward,rotor5Backward,0,rotor5Notch,null);
+	private Rotor r1 = new Rotor(rotor1Forward,rotor1Backward,0,rotor1Turnover,null);
+	private Rotor r2 = new Rotor(rotor2Forward,rotor2Backward,0,rotor2Turnover,null);
+	private Rotor r3 = new Rotor(rotor3Forward,rotor3Backward,0,rotor3Turnover,null);
+	private Rotor r4 = new Rotor(rotor4Forward,rotor4Backward,0,rotor4Turnover,null);
+	private Rotor r5 = new Rotor(rotor5Forward,rotor5Backward,0,rotor5Turnover,null);
 
 	private Rotor[] rotorMap = new Rotor[5];
 
@@ -390,29 +390,29 @@ class EnigmaMachine{
 										// Choose rotor for leftmost position
 										System.out.print("Left Rotor (slow rotor) > ");
 										newRotors[0] = input.nextLine();
-										usedRotors.add(newRotors[0]);
 										if(!checkValidRotor(newRotors[0], usedRotors)){
 											System.out.println("Invalid Rotor. No changes applied."); 
 											break;
 										}
+										usedRotors.add(newRotors[0]);
 
 										// Choose rotor for middle position
 										System.out.print("Middle Rotor > ");
 										newRotors[1] = input.nextLine();
-										usedRotors.add(newRotors[1]);
 										if(!checkValidRotor(newRotors[1], usedRotors)){
 											System.out.println("Invalid Rotor. No changes applied."); 
 											break;
 										}
+										usedRotors.add(newRotors[1]);
 
 										// Choose rotor for rightmost position
 										System.out.print("Right Rotor (fast rotor) > ");
 										newRotors[2] = input.nextLine();
-										usedRotors.add(newRotors[2]);
 										if(!checkValidRotor(newRotors[2], usedRotors)){
 											System.out.println("Invalid Rotor. No changes applied.");
 											break;
 										}
+										usedRotors.add(newRotors[2]);
 
 										machine = new EnigmaI(newRotors[0],newRotors[1],newRotors[2]);
 										System.out.println("----------------------------------------");
