@@ -9,4 +9,3 @@ Terminal Enigma Machine Simulator
 ### TODO
    
    - Implement ring settings
-   - Fix bug when the same rotor is used more than once
