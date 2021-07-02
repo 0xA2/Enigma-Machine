@@ -86,19 +86,39 @@ class RotorList{
 	private Rotor r4 = new Rotor(rotor4Forward,rotor4Backward,0,rotor4Notch,null);
 	private Rotor r5 = new Rotor(rotor5Forward,rotor5Backward,0,rotor5Notch,null);
 
-	private Map<String, Rotor> rotorMap = new HashMap<>();
+	private Rotor[] rotorMap = new Rotor[5];
 
 	RotorList(){
-		String[] keys = {"1","2","3","4","5"};
-		rotorMap.put(keys[0],r1);
-		rotorMap.put(keys[1],r2);
-		rotorMap.put(keys[2],r3);
-		rotorMap.put(keys[3],r4);
-		rotorMap.put(keys[4],r5);
+		rotorMap[0] = r1;
+		rotorMap[1] = r2;
+		rotorMap[2] = r3;
+		rotorMap[3] = r4;
+		rotorMap[4] = r5;
 	}
 
-	public Rotor getRotor(String r){
-		return rotorMap.get(r);
+	public Rotor getRotor(int r){
+		Rotor ret;
+		switch(r){
+			case 1:
+				ret = rotorMap[0];
+				break;
+			case 2:
+				ret = rotorMap[1];
+				break;
+			case 3:
+				ret = rotorMap[2];
+				break;
+			case 4:
+				ret = rotorMap[3];
+				break;
+			case 5:
+				ret = rotorMap[4];
+				break;
+			default:
+				ret = rotorMap[0];
+				break;
+		}
+		return ret;
 	}
 
 }
@@ -180,12 +200,15 @@ class EnigmaI{
 	EnigmaI(){
 
 		// Default settings use rotors 1,2 and 3 (from left to right) and 'AAA' as the starting position.
+		// By default the Plugboard is initialized so no swaps happen.
 
 		rotorList = new RotorList();
 
-		left = rotorList.getRotor("1");
-		mid = rotorList.getRotor("2");
-		right = rotorList.getRotor("3");
+		left = rotorList.getRotor(1);
+		mid = rotorList.getRotor(2);
+		mid.setPrev(left);
+		right = rotorList.getRotor(3);
+		right.setPrev(mid);
 
 		UKW_B = new Reflector();
 
@@ -195,12 +218,15 @@ class EnigmaI{
 	EnigmaI(String r1, String r2, String r3){
 
 		// Alternative constructor that recieves intended rotors to use as parameters
+		// By default the Plugboard is initialized so no swaps happen.
 
 		rotorList = new RotorList();
 
-		left = rotorList.getRotor(r1);
-		mid = rotorList.getRotor(r2);
-		right = rotorList.getRotor(r3);
+		left = rotorList.getRotor(Integer.parseInt(r1));
+		mid = rotorList.getRotor(Integer.parseInt(r2));
+		mid.setPrev(left);
+		right = rotorList.getRotor(Integer.parseInt(r3));
+		right.setPrev(mid);
 
 		UKW_B = new Reflector();
 
@@ -211,7 +237,7 @@ class EnigmaI{
 
 	// Methods
 
-	public char encrypt(char c, boolean showSteps){
+	public char getEncrypt(char c, boolean showSteps){
 		right.step();
 
 		// Swap letter if it's connected to another letter through the plugboard
@@ -281,7 +307,8 @@ class EnigmaI{
 class EnigmaMachine{
 
 	// Auxiliary functions to handle user input
-	static boolean checkValidRotor(String c){
+	static boolean checkValidRotor(String c, TreeSet<String> usedRotors){
+		if(usedRotors.contains(c)){ return false; }
 		return (c.compareTo("1") == 0) || (c.compareTo("2") == 0) || (c.compareTo("3") == 0) || (c.compareTo("4") == 0) || (c.compareTo("5") == 0);
 	}
 
@@ -331,7 +358,7 @@ class EnigmaMachine{
 							String out = "";
 							for(int i = 0; i<plaintext.length(); i++){
 								char curLetter = plaintext.charAt(i);
-								if(Character.isLetter(curLetter)){ out += machine.encrypt(Character.toUpperCase(curLetter),showSteps); }
+								if(Character.isLetter(curLetter)){ out += machine.getEncrypt(Character.toUpperCase(curLetter),showSteps); }
 							}
 							System.out.println("Current rotor positions > " + machine.getRotorSettings());
 							System.out.println("Output Message > " + out);
@@ -358,11 +385,13 @@ class EnigmaMachine{
 										System.out.println("---------------------------");
 
 										String[] newRotors = new String[3];
+										TreeSet<String> usedRotors = new TreeSet<String>();
 
 										// Choose rotor for leftmost position
 										System.out.print("Left Rotor (slow rotor) > ");
 										newRotors[0] = input.nextLine();
-										if(!checkValidRotor(newRotors[0])){
+										usedRotors.add(newRotors[0]);
+										if(!checkValidRotor(newRotors[0], usedRotors)){
 											System.out.println("Invalid Rotor. No changes applied."); 
 											break;
 										}
@@ -370,7 +399,8 @@ class EnigmaMachine{
 										// Choose rotor for middle position
 										System.out.print("Middle Rotor > ");
 										newRotors[1] = input.nextLine();
-										if(!checkValidRotor(newRotors[1])){
+										usedRotors.add(newRotors[1]);
+										if(!checkValidRotor(newRotors[1], usedRotors)){
 											System.out.println("Invalid Rotor. No changes applied."); 
 											break;
 										}
@@ -378,7 +408,8 @@ class EnigmaMachine{
 										// Choose rotor for rightmost position
 										System.out.print("Right Rotor (fast rotor) > ");
 										newRotors[2] = input.nextLine();
-										if(!checkValidRotor(newRotors[2])){
+										usedRotors.add(newRotors[2]);
+										if(!checkValidRotor(newRotors[2], usedRotors)){
 											System.out.println("Invalid Rotor. No changes applied.");
 											break;
 										}
