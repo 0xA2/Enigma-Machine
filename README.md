@@ -19,7 +19,7 @@ Terminal Enigma Machine Simulator
 3) Exit
 > 
 ```
-   - Settings Menu (initial rotor position set to 'AAA'):
+   - Settings Menu (initial rotor position set to 'AAA' and plugboard unused by default):
    ```
 --------------------------------
         Machine Settings
