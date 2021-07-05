@@ -1,4 +1,4 @@
-public class Rotor{
+class Rotor{
 
 	// Attribures
 	private char[] WiringForward;

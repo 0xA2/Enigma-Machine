@@ -1,4 +1,4 @@
-public class RotorList{
+class RotorList{
 
 	// Class to recreate the rotor settings used by the real Enigma Machine and mapping said settings to the corresponding rotor number
 

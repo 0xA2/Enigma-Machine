@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Plugboard{
+class Plugboard{
 
 	// Attributes
 	private Map<Character, Character> plugboard;

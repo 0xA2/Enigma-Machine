@@ -1,4 +1,4 @@
-public class Reflector{
+class Reflector{
 
 	// Original refelctor (UKW-B reflector) used in the real Enigma Machine
 

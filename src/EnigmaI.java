@@ -1,4 +1,4 @@
-public class EnigmaI{
+class EnigmaI{
 
 	// Attributes
 	private RotorList rotorList;
