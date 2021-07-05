@@ -6,6 +6,29 @@ Terminal Enigma Machine Simulator
 
 ---------------
 
-### TODO
-   
-   - Implement ring settings
+### Usage
+  
+   - While inside the 'src' directory compile program with: $ javac EnigmaMachine.java
+   - Initial menu presented to the user:
+   ```
+--------------------------------
+         Enigma Machine
+--------------------------------
+1) Enter message
+2) Edit settings
+3) Exit
+> 
+```
+   - Settings Menu (initial rotor position set to 'AAA'):
+   ```
+--------------------------------
+        Machine Settings
+--------------------------------
+1) Change Rotors
+2) Change Rotor Positions
+3) Change Plugboard
+4) Show/Hide Encryption Steps
+5) Back
+> 
+```
+
