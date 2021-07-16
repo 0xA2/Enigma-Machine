@@ -9,6 +9,7 @@ Terminal Enigma Machine Simulator
 ### Usage
   
    - While inside the 'src' directory compile program with: $ javac EnigmaMachine.java
+   - Execute with: $ java EnigmaMachine
    - Initial menu presented to the user:
    ```
 --------------------------------
